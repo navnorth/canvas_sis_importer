@@ -15,4 +15,12 @@ The files need to be encoded as UTF-8 to make sure they work!
 3. Export to CSV files from postgres. (Postgres creds in a database.yml)
 4. Zip the new CSV files (working directory stores temp csv's)
 5. Post them and consume the body of the response. (destination configurable)
-6. Notify of failure (somehow)
+6. Notify of failure (somehow)?
+
+## Installation requirements
+
+Installation must create a database so ensure the installing user has the CREATEDB permission.
+
+`$ createdb apscanvas`
+`$ chmod +x sql_scripts/export_canvas_data.sh`
+`$ chmod +x sql_scripts/import_clever_data.sh`

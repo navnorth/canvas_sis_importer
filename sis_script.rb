@@ -4,18 +4,21 @@ require 'json'
 require 'unirest'
 require 'zip'
 
-#=======================================
-# Edit this so you don't have to fill it in every time.
-access_token = ''
-domain = ''
-env = '' # Leave empty for production, or use 'test' or 'beta'
-source_folder = ''
-archive_folder = ''
+# These should all be pulled in through environment variables
+access_token = '7Axza4h6aaNKrJNdvS6k1ZNia2N0iws3jFkby5UN6L1hM3S43Yve3UCoWk2m6wSc'
+domain = 'bugatti.glono.us'
+source_folder = 'source_folder'
+archive_folder = 'archive_folder'
 
-# Don't edit from here down unless you know what you're doing.
-#=======================================
-env != '' ? env << '.' : env
-test_url = "https://#{domain}.#{env}instructure.com/api/v1/accounts/self"
+####
+# run all those import and export scripts
+
+Dir.chdir('sql_scripts') do
+  puts `./import_clever_data.sh`
+  puts `./export_canvas_data.sh`
+end
+
+test_url = "http://#{domain}/api/v1/accounts/self"
 endpoint_url = "#{test_url}/sis_imports.json?import_type=instructure_csv"
 
 # Make generic API call to test token, domain, and env.
