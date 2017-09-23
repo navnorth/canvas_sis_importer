@@ -7,8 +7,8 @@ select DISTINCT
     trim(D.student_email) as email,
     'active' as status
 FROM clever_students D INNER join clever_enrollments E on D.student_id = E.student_id
-INNER JOIN clever_sections SX on SX.section_id = E.section_id
-WHERE SX.school_id IN ('455','550','580','592','593')
+    INNER JOIN clever_sections SX on SX.section_id = E.section_id
+    /* INNER JOIN accounts A ON  A.sis_source_id = SX.school_id */
 
 UNION
 
@@ -21,6 +21,8 @@ SELECT DISTINCT
     trim(T.teacher_email) as email,
     'active' as status
 FROM clever_teachers T INNER join clever_sections S on S.teacher_id = T.teacher_id
+    /* INNER JOIN accounts A ON  A.sis_source_id = S.school_id */
+
 WHERE
     T.teacher_id not like 'e999%'
     AND T.teacher_id not in (
@@ -30,4 +32,3 @@ WHERE
         'SpEdPen',
         'e576999'
     )
-AND  S.school_id IN ('455','550','580','592','593')
