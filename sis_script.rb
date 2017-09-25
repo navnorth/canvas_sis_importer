@@ -21,10 +21,11 @@ database = ENV['CANVAS_IMPORT_DATABASE'] || 'apscanvas'
 raise "CANVAS_IMPORT_ARCHIVE_FOLDER isn't a directory" unless File.directory?(archive_folder)
 raise "CANVAS_IMPORT_SOURCE_FOLDER isn't a directory" unless File.directory?(sis_export_folder)
 
-if not database_config.empty?
+if not database_config.nil?
   database_auth = "'--host=#{database_config['host']} --username=#{database_config['username']} -w'"
   database_password = "PGPASSWORD=#{database_config['password']} "
 else
+  puts 'No database.yml was loaded...'
   database_auth = ''
   database_password = ''
 end
