@@ -3,22 +3,28 @@ require 'date'
 require 'json'
 require 'unirest'
 require 'zip'
+# Load ENV variables from .env
+require 'dotenv/load'
 
 # These should all be pulled in through environment variables
-access_token = '7Axza4h6aaNKrJNdvS6k1ZNia2N0iws3jFkby5UN6L1hM3S43Yve3UCoWk2m6wSc'
-domain = 'bugatti.glono.us'
-source_folder = 'source_folder'
-archive_folder = 'archive_folder'
+access_token = ENV['CANVAS_IMPORT_ACCESS_TOKEN']
+domain = ENV['CANVAS_IMPORT_DOMAIN'] || 'canvas.instructure.com'
+source_folder = 'source_folder' # This is an internal setting that shouldn't need to be modified
+archive_folder = ENV['CANVAS_IMPORT_ARCHIVE_FOLDER'] || 'archive_folder'
+protocol = ENV['CANVAS_IMPORT_DOMAIN_PROTO'] || 'https'
+sis_export_folder = File.join(Dir.getwd, ENV['CANVAS_IMPORT_SOURCE_FOLDER'] || 'sql_scripts/data')
 
+raise "CANVAS_IMPORT_ARCHIVE_FOLDER isn't a directory" unless File.directory?(archive_folder)
+raise "CANVAS_IMPORT_SOURCE_FOLDER isn't a directory" unless File.directory?(sis_export_folder)
 ####
 # run all those import and export scripts
 
 Dir.chdir('sql_scripts') do
-  puts `./import_clever_data.sh`
+  puts `./import_clever_data.sh #{sis_export_folder}`
   puts `./export_canvas_data.sh`
 end
 
-test_url = "http://#{domain}/api/v1/accounts/self"
+test_url = "#{protocol}://#{domain}/api/v1/accounts/self"
 endpoint_url = "#{test_url}/sis_imports.json?import_type=instructure_csv"
 
 # Make generic API call to test token, domain, and env.
@@ -79,11 +85,12 @@ end
 
 if job["processing_errors"]
   File.delete(zipfile_name)
+  puts "Processing Errors: #{job["processing_errors"]}"
   raise "An error occurred uploading this file. \n #{job}"
 end
 
 if job["processing_warnings"]
-  puts "Processing Errors: #{job["processing_errors"]}"
+  puts "Processing Warnings: #{job["processing_warnings"]}"
 end
 
 puts "Successfully uploaded files"

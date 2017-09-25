@@ -9,7 +9,11 @@ do
     echo
 done
 
-importDir="$PWD/data"
+importDir=$1
+if ! [[ -d $importDir ]]; then
+  echo 'first argument should be a directory with the APS export in it'
+  exit 1
+fi
 
 psql -d apscanvas -c "copy clever_admins(school_id, staff_id, admin_email, first_name, last_name, admin_title, username, password) from '${importDir}/admins.csv' with (FORMAT csv);"
 psql -d apscanvas -c "copy clever_enrollments(school_id, section_id, student_id) from '${importDir}/enrollments.csv' with (FORMAT csv);"
