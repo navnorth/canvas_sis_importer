@@ -3,6 +3,7 @@ require 'date'
 require 'json'
 require 'unirest'
 require 'zip'
+require 'yaml'
 # Load ENV variables from .env
 require 'dotenv/load'
 
@@ -13,15 +14,28 @@ source_folder = 'source_folder' # This is an internal setting that shouldn't nee
 archive_folder = ENV['CANVAS_IMPORT_ARCHIVE_FOLDER'] || 'archive_folder'
 protocol = ENV['CANVAS_IMPORT_DOMAIN_PROTO'] || 'https'
 sis_export_folder = File.join(Dir.getwd, ENV['CANVAS_IMPORT_SOURCE_FOLDER'] || 'sql_scripts/data')
+environment = ENV['ENVIRONMENT'] || 'development'
+database_config = YAML.load(File.read(ENV['CANVAS_DATABASE_YML']))[environment]
+database = ENV['CANVAS_IMPORT_DATABASE'] || 'apscanvas'
 
 raise "CANVAS_IMPORT_ARCHIVE_FOLDER isn't a directory" unless File.directory?(archive_folder)
 raise "CANVAS_IMPORT_SOURCE_FOLDER isn't a directory" unless File.directory?(sis_export_folder)
+
+if not database_config.empty?
+  database_auth = "'--host=#{database_config['host']} --username=#{database_config['username']} -w'"
+  database_password = "PGPASSWORD=#{database_config['password']} "
+else
+  database_auth = ''
+  database_password = ''
+end
 ####
 # run all those import and export scripts
 
 Dir.chdir('sql_scripts') do
-  puts `./import_clever_data.sh #{sis_export_folder}`
-  puts `./export_canvas_data.sh`
+  puts `#{database_password}./import_clever_data.sh #{sis_export_folder} #{database} #{database_auth}`
+  raise "Error: Importing from APS CSVs failed!" if $? != 0
+  puts `#{database_password}./export_canvas_data.sh #{database} #{database_auth}`
+  raise "Error: Exporting from translation database failed!" if $? != 0
 end
 
 test_url = "#{protocol}://#{domain}/api/v1/accounts/self"

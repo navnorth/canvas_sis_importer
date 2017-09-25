@@ -20,7 +20,14 @@ The files need to be encoded as UTF-8 to make sure they work!
 ## Installation requirements
 
 Installation must create a database so ensure the installing user has the CREATEDB permission.
+Also, the database that you create should be accessible by the same database user that
+canvas itself uses.
 
 `$ createdb apscanvas`
 `$ chmod +x sql_scripts/export_canvas_data.sh`
 `$ chmod +x sql_scripts/import_clever_data.sh`
+
+Once that's all setup, make sure you setup your `.env` file with the right stuff.
+You'll need an API access token for your canvas installation.  One difference is that 
+we're not running on the same database that the main canvas installation is running on
+be sure to update that setting too.  (and create the correct database since that's not automatic)
