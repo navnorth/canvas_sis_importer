@@ -10,13 +10,13 @@ require 'dotenv/load'
 # These should all be pulled in through environment variables
 access_token = ENV['CANVAS_IMPORT_ACCESS_TOKEN']
 domain = ENV['CANVAS_IMPORT_DOMAIN'] || 'canvas.instructure.com'
-source_folder = 'source_folder' # This is an internal setting that shouldn't need to be modified
-archive_folder = ENV['CANVAS_IMPORT_ARCHIVE_FOLDER'] || 'archive_folder'
+source_folder = 'canvas_csvs' # This is an internal setting that shouldn't need to be modified
+archive_folder = ENV['CANVAS_IMPORT_ARCHIVE_FOLDER'] || 'archived_imports'
 protocol = ENV['CANVAS_IMPORT_DOMAIN_PROTO'] || 'https'
-sis_export_folder = File.join(Dir.getwd, ENV['CANVAS_IMPORT_SOURCE_FOLDER'] || 'sql_scripts/data')
+sis_export_folder = File.join(Dir.getwd, ENV['CANVAS_IMPORT_SOURCE_FOLDER'] || 'data')
 environment = ENV['ENVIRONMENT'] || 'development'
 database_config = YAML.load(File.read(ENV['CANVAS_DATABASE_YML']))[environment]
-database = ENV['CANVAS_IMPORT_DATABASE'] || 'apscanvas'
+database = ENV['CANVAS_IMPORT_DATABASE'] || 'canvas'
 
 raise "CANVAS_IMPORT_ARCHIVE_FOLDER isn't a directory" unless File.directory?(archive_folder)
 raise "CANVAS_IMPORT_SOURCE_FOLDER isn't a directory" unless File.directory?(sis_export_folder)
@@ -34,7 +34,7 @@ end
 
 Dir.chdir('sql_scripts') do
   puts `#{database_password}./import_clever_data.sh #{sis_export_folder} #{database} #{database_auth}`
-  raise "Error: Importing from APS CSVs failed!" if $? != 0
+  raise "Error: Importing from SIS CSVs failed!" if $? != 0
   puts `#{database_password}./export_canvas_data.sh #{database} #{database_auth}`
   raise "Error: Exporting from translation database failed!" if $? != 0
 end
