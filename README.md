@@ -28,6 +28,6 @@ canvas itself uses.
 `$ chmod +x sql_scripts/import_clever_data.sh`
 
 Once that's all setup, make sure you setup your `.env` file with the right stuff.
-You'll need an API access token for your canvas installation.  One difference is that 
+You'll need an API access token for your canvas installation.  One difference is that
 we're not running on the same database that the main canvas installation is running on
 be sure to update that setting too.  (and create the correct database since that's not automatic)

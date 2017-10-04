@@ -56,3 +56,12 @@ build-iPhoneSimulator/
 
 ## Rubymine Settings
 /.idea
+
+## misc OS files
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
