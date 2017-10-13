@@ -49,7 +49,7 @@ end
 # run all those import and export scripts
 
 Dir.chdir('sql_scripts') do
-  puts `#{database_password}./import_clever_data.sh #{sis_export_folder} #{database} #{database_auth}`
+  puts `#{database_password}./import_sis_import_data.sh #{sis_export_folder} #{database} #{database_auth}`
   raise "Error: Importing from SIS CSVs failed!" if $? != 0
   puts `#{database_password}./export_canvas_data.sh #{database} #{database_auth}`
   raise "Error: Exporting from translation database failed!" if $? != 0

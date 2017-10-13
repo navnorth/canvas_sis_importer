@@ -5,4 +5,4 @@ select
     start_date,
     end_date
 from
-    clever_terms
+    sis_import_terms

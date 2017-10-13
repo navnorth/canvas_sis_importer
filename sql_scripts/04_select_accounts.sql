@@ -4,5 +4,5 @@ select
     school_name as name,
     'active' as status
 from
-    clever_schools
+    sis_import_schools
 WHERE school_id IN ('590','580','420')

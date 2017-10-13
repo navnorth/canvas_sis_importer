@@ -6,4 +6,4 @@ select
     trim(first_name)||' '||trim(last_name) as full_name,
     trim(admin_email) as email,
     'active' as status
-from clever_admins
+from sis_import_admins

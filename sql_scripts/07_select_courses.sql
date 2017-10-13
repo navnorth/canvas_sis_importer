@@ -11,7 +11,7 @@ with sections_canvas as (
         subject,
         term_name,
         trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id)
-    from clever_sections
+    from sis_import_sections
 
 	/* testing schools */
     WHERE trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id) IN
@@ -24,11 +24,11 @@ select
     course_name as short_name,
     course_name as long_name,
     school_id as account_id,
-    clever_terms.term_id as term_id,
+    sis_import_terms.term_id as term_id,
     'active' as status
 from
     sections_canvas
-    left join clever_terms on trim(sections_canvas.term_name) = clever_terms.name
+    left join sis_import_terms on trim(sections_canvas.term_name) = sis_import_terms.name
 group by
     course_number,
     course_name,

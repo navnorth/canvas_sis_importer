@@ -11,7 +11,7 @@ with sections_canvas as (
         subject,
         term_name,
         trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id) as course_id
-    from clever_sections
+    from sis_import_sections
 
     /* testing schools */
     WHERE trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id) IN
@@ -38,7 +38,7 @@ select
     'active' as status,
 	TRUE as limit_section_privileges
 from
-    clever_enrollments e
+    sis_import_enrollments e
         inner join section_canvas_grouped scg on trim(e.section_id) = scg.section_id
 /*
 where scg.course_id IN ('250311.S1.590','803331.S1.580','803341.S1.580','803321.S1.580','42111de1.S1.517')

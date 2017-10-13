@@ -11,7 +11,7 @@ with sections_canvas as (
         subject,
         term_name,
         trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id) as course_id
-    from clever_sections
+    from sis_import_sections
 
     /* testing schools */
     WHERE trim(course_number)||'.'||trim(term_name)||'.'||trim(school_id) IN

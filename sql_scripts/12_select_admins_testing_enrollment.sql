@@ -6,7 +6,7 @@ select
     '' as section_id,
     'active' as status
 from
-    clever_admins
+    sis_import_admins
 WHERE trim(schedule) = 'SPE'
 
 UNION
@@ -19,7 +19,7 @@ select
     '' as section_id,
     'active' as status
 from
-    clever_admins
+    sis_import_admins
 WHERE trim(schedule) LIKE 'A SCHED%'
 
 UNION
@@ -32,5 +32,5 @@ select
     '' as section_id,
     'active' as status
 from
-    clever_admins
+    sis_import_admins
 WHERE trim(schedule) = 'G1 SCHED'

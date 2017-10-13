@@ -7,7 +7,7 @@ select
     trim(first_name)||' '||trim(last_name) as full_name,
     trim(admin_email) as email,
     'active' as status
-from clever_admins
+from sis_import_admins
 
 WHERE school_id IN ('590','580','420')
 union
@@ -21,7 +21,7 @@ select DISTINCT
     trim(T.first_name)||'.'||' '||trim(T.middle_name)||'.'||' '||trim(T.last_name) as full_name,
     trim(T.teacher_email) as email,
     'active' as status
-from clever_teachers T INNER join clever_sections S on S.teacher_id = T.teacher_id
+from sis_import_teachers T INNER join sis_import_sections S on S.teacher_id = T.teacher_id
 where
 T.teacher_id not like 'e999%'
 and T.teacher_id not in (
