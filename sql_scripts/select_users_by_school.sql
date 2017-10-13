@@ -6,8 +6,8 @@ select DISTINCT
     regexp_replace(trim(D.first_name)||' '||trim(D.middle_name)||'. '||trim(D.last_name), ' . ', ' ', 'g') as full_name,
     trim(D.student_email) as email,
     'active' as status
-FROM clever_students D INNER join clever_enrollments E on D.student_id = E.student_id
-    INNER JOIN clever_sections SX on SX.section_id = E.section_id
+FROM sis_import_students D INNER join sis_import_enrollments E on D.student_id = E.student_id
+    INNER JOIN sis_import_sections SX on SX.section_id = E.section_id
     /* INNER JOIN accounts A ON  A.sis_source_id = SX.school_id */
 
 UNION
@@ -20,7 +20,7 @@ SELECT DISTINCT
     regexp_replace(trim(T.first_name)||'. '||trim(T.middle_name)||'. '||trim(T.last_name), ' . ', ' ', 'g') as full_name,
     trim(T.teacher_email) as email,
     'active' as status
-FROM clever_teachers T INNER join clever_sections S on S.teacher_id = T.teacher_id
+FROM sis_import_teachers T INNER join sis_import_sections S on S.teacher_id = T.teacher_id
     /* INNER JOIN accounts A ON  A.sis_source_id = S.school_id */
 
 WHERE

@@ -1,8 +1,8 @@
 begin;
 
-DROP TABLE IF EXISTS clever_admins;
+DROP TABLE IF EXISTS sis_import_admins;
 
-CREATE TABLE IF NOT EXISTS clever_admins (
+CREATE TABLE IF NOT EXISTS sis_import_admins (
     id serial,
     school_id text,
     staff_id text,
@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS clever_admins (
     password text
 );
 
-DROP TABLE IF EXISTS clever_enrollments;
+DROP TABLE IF EXISTS sis_import_enrollments;
 
-CREATE TABLE IF NOT EXISTS clever_enrollments (
+CREATE TABLE IF NOT EXISTS sis_import_enrollments (
     id serial,
     school_id text,
     section_id text,
@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS clever_enrollments (
 
 );
 
-DROP TABLE IF EXISTS clever_schools;
+DROP TABLE IF EXISTS sis_import_schools;
 
-CREATE TABLE IF NOT EXISTS clever_schools (
+CREATE TABLE IF NOT EXISTS sis_import_schools (
     id serial,
     school_id text,
     state_id text,
@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS clever_schools (
     principal_email text
 );
 
-DROP TABLE IF EXISTS clever_sections;
+DROP TABLE IF EXISTS sis_import_sections;
 
-CREATE TABLE IF NOT EXISTS clever_sections (
+CREATE TABLE IF NOT EXISTS sis_import_sections (
     id serial,
     school_id text,
     section_id text,
@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS clever_sections (
     term_name text
 );
 
-DROP TABLE IF EXISTS clever_students;
+DROP TABLE IF EXISTS sis_import_students;
 
-CREATE TABLE IF NOT EXISTS clever_students (
+CREATE TABLE IF NOT EXISTS sis_import_students (
     id serial,
     school_id text,
     student_id text,
@@ -92,9 +92,9 @@ CREATE TABLE IF NOT EXISTS clever_students (
     password text
 );
 
-DROP TABLE IF EXISTS clever_teachers;
+DROP TABLE IF EXISTS sis_import_teachers;
 
-CREATE TABLE IF NOT EXISTS clever_teachers (
+CREATE TABLE IF NOT EXISTS sis_import_teachers (
     id serial,
     school_id text,
     teacher_id text,

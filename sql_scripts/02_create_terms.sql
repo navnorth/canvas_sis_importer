@@ -1,8 +1,8 @@
 begin;
 
-DROP TABLE IF EXISTS clever_terms;
+DROP TABLE IF EXISTS sis_import_terms;
 
-create table clever_terms (
+create table sis_import_terms (
     id serial,
     term_id text,
     name text,
@@ -11,7 +11,7 @@ create table clever_terms (
     end_date text
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T001',
     'YR',
     'active',
@@ -19,7 +19,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2018-05-23 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T002',
     'S1',
     'active',
@@ -27,7 +27,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2018-12-15 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T003',
     'S2',
     'active',
@@ -35,7 +35,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2018-05-23 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T004',
     'Q1',
     'active',
@@ -43,7 +43,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2017-10-11 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T005',
     'Q2',
     'active',
@@ -51,7 +51,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2017-12-15 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T006',
     'Q3',
     'active',
@@ -59,7 +59,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2018-03-09 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T007',
     'Q4',
     'active',
@@ -67,7 +67,7 @@ insert into clever_terms(term_id, name, status, start_date, end_date) values(
     '2018-05-23 23:59:59'
 );
 
-insert into clever_terms(term_id, name, status, start_date, end_date) values(
+insert into sis_import_terms(term_id, name, status, start_date, end_date) values(
     'T008',
     'EYR',
     'active',
