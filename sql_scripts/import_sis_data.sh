@@ -21,9 +21,11 @@ do
 done
 
 # remove the header line of each csv
+# AND convert to UTF-8 since some of them are not
 for f in ${importDir}/*.csv
 do
     sed -i '1d' "$f"
+    vim +"set nobomb | set fenc=utf8 | x" "$f"
 done
 
 psql -d ${database} ${database_auth} -c "copy sis_import_admins(school_id, staff_id, admin_email, first_name, last_name, admin_title, username, password) from '${importDir}/admins.csv' with (FORMAT csv);"
