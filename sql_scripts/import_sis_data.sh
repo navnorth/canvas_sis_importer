@@ -20,6 +20,11 @@ do
     echo
 done
 
+# remove the header line of each csv
+for f in ${importDir}/*.csv
+do
+    sed -i '1d' "$f"
+done
 
 psql -d ${database} ${database_auth} -c "copy sis_import_admins(school_id, staff_id, admin_email, first_name, last_name, admin_title, username, password) from '${importDir}/admins.csv' with (FORMAT csv);"
 psql -d ${database} ${database_auth} -c "copy sis_import_enrollments(school_id, section_id, student_id) from '${importDir}/enrollments.csv' with (FORMAT csv);"
