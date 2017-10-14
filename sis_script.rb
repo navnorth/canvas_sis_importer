@@ -38,8 +38,10 @@ raise "CANVAS_IMPORT_ARCHIVE_FOLDER isn't a directory" unless File.directory?(ar
 raise "CANVAS_IMPORT_SOURCE_FOLDER isn't a directory" unless File.directory?(sis_export_folder)
 
 if not database_config.nil?
-  database_auth = "'--host=#{database_config['host']} --username=#{database_config['username']} -w'"
-  database_password = "PGPASSWORD=#{database_config['password']} "
+  if database_config['username'] != 'postgres'
+    database_auth = "'--host=#{database_config['host']} --username=#{database_config['username']} -w'"
+    database_password = "PGPASSWORD=#{database_config['password']} "
+  end
 else
   puts 'No database.yml was loaded...'
   database_auth = ''
@@ -49,7 +51,7 @@ end
 # run all those import and export scripts
 
 Dir.chdir('sql_scripts') do
-  puts `#{database_password}./import_sis_import_data.sh #{sis_export_folder} #{database} #{database_auth}`
+  puts `#{database_password}./import_sis_data.sh #{sis_export_folder} #{database} #{database_auth}`
   raise "Error: Importing from SIS CSVs failed!" if $? != 0
   puts `#{database_password}./export_canvas_data.sh #{database} #{database_auth}`
   raise "Error: Exporting from translation database failed!" if $? != 0

@@ -19,14 +19,20 @@ The files need to be encoded as UTF-8 to make sure they work!
 
 ## Installation requirements
 
-First make sure you setup your `.env` file with the right stuff. You'll need an API access token for your canvas installation (go to http://canvas.aps.edu/profile/settings and click "New Access Token" button). Now install the dependencies (done locally here):
+First make sure you setup your `.env` file with the right stuff. You'll need an API access token for your canvas installation (go to http://canvas.aps.edu/profile/settings and click "New Access Token" button). You may need to install the ruby bundler:
+
+`sudo apt-get install ruby-bundler`
+
+Now install the dependencies (done locally here):
 
 `bundle install --path vendor/bundle`
+
+If you get errors, you may need to install g++ and make.
 
 Now update the shell scripts to be executable:
 
 `$ chmod +x sql_scripts/export_canvas_data.sh`
-`$ chmod +x sql_scripts/import_sis_import_data.sh`
+`$ chmod +x sql_scripts/import_sis_data.sh`
 
 ## Other Notes
 
