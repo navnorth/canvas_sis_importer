@@ -41,6 +41,9 @@ if not database_config.nil?
   if database_config['username'] != 'postgres'
     database_auth = "'--host=#{database_config['host']} --username=#{database_config['username']} -w'"
     database_password = "PGPASSWORD=#{database_config['password']} "
+  else
+    database_auth = "'-w'"
+    database_password = ''
   end
 else
   puts 'No database.yml was loaded...'
