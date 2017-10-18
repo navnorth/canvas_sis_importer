@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS sis_import_admins (
     last_name text,
     admin_title text,
     username text,
-    password text
+    password text,
+    schedule text
 );
 
 DROP TABLE IF EXISTS sis_import_enrollments;
