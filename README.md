@@ -13,26 +13,31 @@ The files need to be encoded as UTF-8 to make sure they work!
 1. Find the CSV files posted to a directory by the SIS. (configurable directory)
 2. Import those CSV contents into the Postgresql database and crunch some datas
 3. Export to Canvas formatted CSV files from postgres. (Postgres creds in a database.yml)
-4. Zip the new CSV files (working directory stores temp csv's)
+4. Zip the new CSV files (working directory stores temp CSV's)
 5. Post them and consume the body of the response. (destination configurable)
 6. Notify of failure (somehow)?
 
 ## Installation requirements
 
-First make sure you setup your `.env` file with the right stuff. You'll need an API access token for your canvas installation (go to http://canvas.aps.edu/profile/settings and click "New Access Token" button). You may need to install the ruby bundler:
+First make sure you setup your `.env` file with the right stuff. You'll need an API
+access token for your canvas installation (go to http://canvas.aps.edu/profile/settings
+and click the **New Access Token** button). You may need to install the ruby bundler:
 
-`sudo apt-get install ruby-bundler`
+`$ sudo apt-get install ruby-bundler`
 
 Now install the dependencies (done locally here):
 
-`bundle install --path vendor/bundle`
+`$ bundle install --path vendor/bundle`
 
-If you get errors, you may need to install g++ and make.
+If you get errors with the JSON gem, then you may also need to install `g++` and `make`.
 
 Now update the shell scripts to be executable:
 
-`$ chmod +x sql_scripts/export_canvas_data.sh`
-`$ chmod +x sql_scripts/import_sis_data.sh`
+`$ chmod +x sql_scripts/*.sh`
+
+Once those are set, to run the script:
+
+`$ bundle exec ruby sis_script.rb`
 
 ## Other Notes
 
