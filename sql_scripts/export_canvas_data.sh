@@ -22,5 +22,13 @@ echo "Exporting Users"
 statement=`cat select_users_by_school.sql | tr '\n' ' '`
 psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users.csv
 rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
-echo "Exported Users"
+echo "Finished exporting Users"
+echo
+
+# Test Security enrollments for certain employees
+echo "Exporting Test Security Enrollments"
+statement=`cat select_admins_testing_enrollment.sql | tr '\n' ' '`
+psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/enrollments.csv
+rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+echo "Finished exporting Test Security Enrollments"
 echo
