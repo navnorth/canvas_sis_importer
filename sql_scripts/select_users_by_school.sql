@@ -26,7 +26,6 @@ select DISTINCT
 FROM sis_import_students D INNER join sis_import_enrollments E on D.student_id = E.student_id
     INNER JOIN sis_import_sections SX on SX.section_id = E.section_id
     INNER JOIN accounts A ON  A.sis_source_id = SX.school_id
-WHERE
 
 UNION
 
