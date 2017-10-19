@@ -113,8 +113,8 @@ import_status_url = "#{test_url}/sis_imports/#{job['id']}"
 puts "Status url is " + import_status_url
 
 while job["workflow_state"] == "created" || job["workflow_state"] == "importing"
-  puts "importing: " + job["progress"] + "%"
-  sleep(3)
+  puts "importing: #{job['progress']} %"
+  sleep(15)
 
   import_status = Unirest.get(import_status_url,
                               headers: {
