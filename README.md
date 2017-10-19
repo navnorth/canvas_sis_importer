@@ -1,4 +1,4 @@
-# NM SIS Importer
+# Canvas SIS Importer
 
 Takes CSV files exported from APS's SIS system, selects and reformats the
 data for Canvas, and uploads the data to a CanvasLMS system.
