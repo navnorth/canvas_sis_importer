@@ -26,7 +26,7 @@ done
 # process each of the SIS source files
 for f in ${importDir}/*.csv
 do
-    $fileName=$(basename $f)
+    fileName=$(basename $f)
 
     #copy to tmpDir
     cp $f ${importTmpDir}/
