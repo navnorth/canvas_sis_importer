@@ -29,7 +29,7 @@ do
     $fileName=$(basename $f)
 
     #copy to tmpDir
-    cp $f ${importTmpDir}
+    cp $f ${importTmpDir}/
 
     # convert to UTF-8, and hopefully the ñ won't kill it
     vim +"set nobomb | set fenc=utf8 | x" "${importTmpDir}/$fileName"
