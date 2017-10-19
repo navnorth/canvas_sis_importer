@@ -105,10 +105,15 @@ upload = Unirest.post(endpoint_url,
 )
 job = upload.body
 
+# echo the start time
+time1 = Time.new
+puts "Uploaded zip at " + time1.inspect
+
 import_status_url = "#{test_url}/sis_imports/#{job['id']}"
+puts "Status url is " + import_status_url
 
 while job["workflow_state"] == "created" || job["workflow_state"] == "importing"
-  puts "importing"
+  puts "importing: " + job["progress"] + "%"
   sleep(3)
 
   import_status = Unirest.get(import_status_url,
