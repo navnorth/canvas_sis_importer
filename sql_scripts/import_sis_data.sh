@@ -10,7 +10,7 @@ database=$2
 database_auth=$3
 
 # tmp directory for manipulating import files
-importTmpDir=$( cd "$(dirname "./tmp")" ; pwd -P )
+importTmpDir=$( pwd -P )/tmp
 mkdir -p ${importTmpDir}
 
 for importfile in 01_schema 02_terms
