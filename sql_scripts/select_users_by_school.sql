@@ -25,7 +25,8 @@ select DISTINCT
     'active' as status
 FROM sis_import_students D INNER join sis_import_enrollments E on D.student_id = E.student_id
     INNER JOIN sis_import_sections SX on SX.section_id = E.section_id
-    /* INNER JOIN accounts A ON  A.sis_source_id = SX.school_id */
+    INNER JOIN accounts A ON  A.sis_source_id = SX.school_id
+WHERE
 
 UNION
 
@@ -38,7 +39,7 @@ SELECT DISTINCT
     trim(T.teacher_email) as email,
     'active' as status
 FROM sis_import_teachers T INNER join sis_import_sections S on S.teacher_id = T.teacher_id
-    /* INNER JOIN accounts A ON  A.sis_source_id = S.school_id */
+    INNER JOIN accounts A ON  A.sis_source_id = S.school_id
 
 WHERE
     T.teacher_id not like 'e999%'
@@ -49,3 +50,18 @@ WHERE
         'SpEdPen',
         'e576999'
     )
+
+UNION
+
+SELECT DISTINCT
+    trim(D.staff_id) as user_id,
+    '' as integration_id,
+    trim(D.staff_id) as login_id,
+    '3' as authentication_provider_id,
+    INITCAP(trim(D.first_name)||' '||trim(D.last_name)) as full_name,
+    trim(D.admin_email) as email,
+    'active' as status
+FROM sis_import_admins D
+    INNER JOIN accounts A ON A.sis_source_id = D.school_id
+WHERE trim(D.schedule) LIKE 'A SCHED%'
+    OR trim(D.schedule) IN ('SPE','G1 SCHED')
