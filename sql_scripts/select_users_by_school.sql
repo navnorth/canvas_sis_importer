@@ -38,7 +38,7 @@ SELECT DISTINCT
     trim(T.teacher_email) as email,
     'active' as status
 FROM sis_import_teachers T INNER join sis_import_sections S on S.teacher_id = T.teacher_id
-    INNER JOIN accounts A ON  A.sis_source_id = S.school_id
+    /* INNER JOIN accounts A ON  A.sis_source_id = S.school_id */
 
 WHERE
     T.teacher_id not like 'e999%'
@@ -61,6 +61,7 @@ SELECT DISTINCT
     trim(D.admin_email) as email,
     'active' as status
 FROM sis_import_admins D
-    INNER JOIN accounts A ON A.sis_source_id = D.school_id
+    /* INNER JOIN accounts A ON A.sis_source_id = D.school_id */
+
 WHERE trim(D.schedule) LIKE 'A SCHED%'
     OR trim(D.schedule) IN ('SPE','G1 SCHED')
