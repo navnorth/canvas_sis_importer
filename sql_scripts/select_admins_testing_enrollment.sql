@@ -24,7 +24,7 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE trim(schedule) = 'SPE'
+WHERE ( (trim(schedule) = 'SPE') OR (trim(schedule) = 'A SCHED2') OR (trim(schedule) = 'A SCHED4') OR (trim(schedule) = 'PSN') )
 
 UNION
 
@@ -37,7 +37,7 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE trim(schedule) LIKE 'A SCHED%'
+WHERE ( (trim(schedule) LIKE 'A SCHED%') OR (trim(schedule) = 'PSN') )
 
 UNION
 
@@ -50,4 +50,5 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE trim(schedule) = 'G1 SCHED'
+WHERE ( (trim(schedule) = 'G1 SCHED') OR (trim(schedule) = 'A SCHED2') OR (trim(schedule) = 'A SCHED4') OR (trim(schedule) = 'PSN') )
+
