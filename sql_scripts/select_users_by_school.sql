@@ -1,4 +1,4 @@
-/*
+ /*
  Copyright (C) 2017 - present Navigation North
 
  This program is free software: you can redistribute it and/or modify
@@ -43,6 +43,7 @@ FROM sis_import_teachers T INNER join sis_import_sections S on S.teacher_id = T.
 WHERE
     T.teacher_id not like 'e999%'
     AND T.teacher_id not in (
+        'e999008','e999101','e999102','e999103','e999105','e999998','e999999',
         '777777777',
         'closed_sec',
         'e222222222',

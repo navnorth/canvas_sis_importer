@@ -15,7 +15,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-select
+SELECT DISTINCT
     'TEST_SEC_STC' as course_id,
     trim(staff_id) as user_id,
     'student' as role,
@@ -24,11 +24,11 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE ( (trim(schedule) = 'SPE') OR (trim(schedule) = 'A SCHED2') OR (trim(schedule) = 'A SCHED4') OR (trim(schedule) = 'PSN') )
+WHERE (trim(schedule) = 'SPE')
 
 UNION
 
-select
+SELECT DISTINCT
     'TEST_SEC_TA' as course_id,
     trim(staff_id) as user_id,
     'student' as role,
@@ -37,11 +37,11 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE ( (trim(schedule) LIKE 'A SCHED%') OR (trim(schedule) = 'PSN') )
+WHERE (trim(schedule) LIKE 'A SCHED%')
 
 UNION
 
-select
+SELECT DISTINCT
     'TEST_SEC_STAFF' as course_id,
     trim(staff_id) as user_id,
     'student' as role,
@@ -50,5 +50,28 @@ select
     'active' as status
 from
     sis_import_admins
-WHERE ( (trim(schedule) = 'G1 SCHED') OR (trim(schedule) = 'A SCHED2') OR (trim(schedule) = 'A SCHED4') OR (trim(schedule) = 'PSN') )
+WHERE (trim(schedule) = 'G1 SCHED')
+
+
+/* put all teachers in TA course */
+UNION
+
+SELECT DISTINCT
+    'TEST_SEC_TA' as course_id,
+    trim(teacher_id) as user_id,
+    'student' as role,
+    '' as role_id,
+    '' as section_id,
+    'active' as status
+from
+    sis_import_teachers
+WHERE
+    teacher_id not in (
+        'e999008','e999101','e999102','e999103','e999105','e999998','e999999',
+        '777777777',
+        'closed_sec',
+        'e222222222',
+        'SpEdPen',
+        'e576999'
+    )
 
