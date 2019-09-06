@@ -30,7 +30,7 @@ SELECT DISTINCT
     'active' as status
 from
     sis_import_admins A
-WHERE ( A.admin_title NOT IN (SELECT exclude_title FROM excludeTitlesList) )
+WHERE ( trim(A.admin_title) NOT IN (SELECT exclude_title FROM excludeTitlesList) )
     AND (trim(A.schedule) = 'SPE')
 
 UNION
@@ -47,7 +47,7 @@ SELECT DISTINCT
     'active' as status
 from
     sis_import_admins A
-WHERE ( A.admin_title NOT IN (SELECT exclude_title FROM excludeTitlesList) )
+WHERE ( trim(A.admin_title) NOT IN (SELECT exclude_title FROM excludeTitlesList) )
     AND (trim(A.schedule) LIKE 'A SCHED%')
 
 UNION
@@ -64,7 +64,7 @@ SELECT DISTINCT
     'active' as status
 from
     sis_import_admins A
-WHERE ( A.admin_title NOT IN (SELECT exclude_title FROM excludeTitlesList) )
+WHERE ( trim(A.admin_title) NOT IN (SELECT exclude_title FROM excludeTitlesList) )
     AND (trim(A.schedule) = 'G1 SCHED')
 
 
@@ -83,8 +83,8 @@ SELECT DISTINCT
     'active' as status
 from
     sis_import_teachers T
-WHERE ( T.title NOT IN (SELECT exclude_title FROM excludeTitlesList) ) AND
-    T.teacher_id not in (
+WHERE ( trim(T.title) NOT IN (SELECT exclude_title FROM excludeTitlesList) ) AND
+    trim(T.teacher_id) not in (
         'e999008','e999101','e999102','e999103','e999105','e999998','e999999',
         '777777777',
         'closed_sec',
