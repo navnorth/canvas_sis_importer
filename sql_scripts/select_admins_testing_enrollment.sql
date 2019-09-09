@@ -72,6 +72,7 @@ SELECT DISTINCT
 from
     sis_import_teachers T LEFT OUTER JOIN excludeTitlesList E ON trim(T.title) = E.exclude_title
 WHERE ( trim(T.title) NOT IN (SELECT exclude_title FROM excludeTitlesList) ) AND
+    ( trim(T.title) NOT LIKE '%PRINCIPAL%') AND
     trim(T.teacher_id) not in (
         'e999008','e999101','e999102','e999103','e999105','e999998','e999999',
         '777777777',
