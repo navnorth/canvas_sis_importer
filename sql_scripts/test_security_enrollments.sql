@@ -65,8 +65,7 @@ SELECT DISTINCT
 from
     sis_import_admins A
 WHERE ( trim(A.admin_title) NOT IN (SELECT exclude_title FROM excludeTitlesList) )
-    AND (trim(A.schedule) = 'G1 SCHED')
-
+    AND ( (trim(A.schedule) = 'G1 SCHED') OR (trim(A.schedule) LIKE 'B SCHED%') )
 
 /* put all teachers in TA course */
 UNION
