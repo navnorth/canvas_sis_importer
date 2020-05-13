@@ -64,5 +64,7 @@ SELECT DISTINCT
 FROM sis_import_admins D
     /* INNER JOIN accounts A ON A.sis_source_id = D.school_id */
 
+/* no longer filtering admins by schedule
 WHERE trim(D.schedule) LIKE 'A SCHED%'
     OR trim(D.schedule) IN ('SPE','G1 SCHED')
+*/
