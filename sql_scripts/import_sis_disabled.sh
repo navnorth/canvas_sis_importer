@@ -55,9 +55,12 @@ echo "Exporting Disabled Users"
 statement=`cat select_users_disabled.sql | tr '\n' ' '`
 psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users_disabled_$(date +"%Y%m%d").csv
 rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+
+cd ../canvas_csvs
+
 echo "Finished exporting Disabled Users"
 echo "...almost done, now go home and do :"
-echo "scp canvasDb:/home/postgres/canvas_sis_importer/canvas_csvs/users_disabled_$(date +"%Y%m%d").csv ./"
+echo "scp $(hostname):$(pwd)/users_disabled_$(date +"%Y%m%d").csv ./"
 
 
 
