@@ -16,7 +16,7 @@
 */
 
 SELECT DISTINCT CONCAT(trim(D.first_name), ' ', trim(D.last_name)) AS deactivated_name, U.name AS canvas_name, P.unique_id,
-	P.last_login_at,  U.created_at, U.updated_at, U.deleted_at
+	P.last_login_at,  U.created_at, U.updated_at
 FROM sis_disabled D INNER JOIN pseudonyms P ON P.unique_id = D.sis_id
 INNER JOIN users U on U.id = P.user_id
 WHERE U.deleted_at IS NULL
