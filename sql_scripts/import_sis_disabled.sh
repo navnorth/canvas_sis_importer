@@ -47,9 +47,21 @@ sed -i '1d' "${importTmpDir}/$fileName"
 echo "finished processing $fileName"
 
 # if you need to create the initial table, use this
-# create table sis_disabled (id serial PRIMARY KEY,first_name varchar(255) null,last_name varchar(255) null,sis_id varchar(64) not null);
+# create table sis_disabled (id serial PRIMARY KEY,first_name varchar(255) null,last_name varchar(255) null,sis_id varchar(64) not null,status bool not null);
 
-psql -d ${database} ${database_auth} -c "copy sis_disabled(first_name, last_name, sis_id) from '${importTmpDir}/$fileName' with (FORMAT csv);"
+psql -d ${database} ${database_auth} -c "copy sis_disabled(first_name, last_name, sis_id, status) from '${importTmpDir}/$fileName' with (FORMAT csv);"
+
+echo "Exporting Disabled Users"
+statement=`cat select_users_disabled.sql | tr '\n' ' '`
+psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users_disabled_$(date +"%Y%m%d").csv
+rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+echo "Finished exporting Disabled Users"
+echo "...almost done, now go home and do :"
+echo "scp canvasDb:/home/postgres/canvas_sis_importer/canvas_csvs/users_disabled_$(date +"%Y%m%d").csv ./"
+
+
+
 
 # cleanup tmp files
 rm -Rf ${importTmpDir}
+
