@@ -51,18 +51,23 @@ echo "finished processing $fileName"
 
 psql -d ${database} ${database_auth} -c "copy sis_disabled(first_name, last_name, sis_id, status) from '${importTmpDir}/$fileName' with (FORMAT csv);"
 
-echo "Exporting Disabled Users"
-statement=`cat select_users_disabled.sql | tr '\n' ' '`
-psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users_disabled_$(date +"%Y%m%d").csv
+echo "Exporting Details about Deactivated Users"
+statement=`cat select_users_disabled_info.sql | tr '\n' ' '`
+psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users_delete_info_$(date +"%Y%m%d").csv
+rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
+
+echo "Exporting importer file to deactivate users"
+statement=`cat select_users_to_delete.sql | tr '\n' ' '`
+psql -d ${database} ${database_auth} -c "copy ($statement) to stdout with csv header delimiter ',';" > ../canvas_csvs/users_delete_$(date +"%Y%m%d").csv
 rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
 
 cd ../canvas_csvs
 
 echo "Finished exporting Disabled Users"
 echo "...almost done, now go home and do :"
-echo "scp $(hostname):$(pwd)/users_disabled_$(date +"%Y%m%d").csv ./"
-
-
+echo "scp $(hostname):$(pwd)/users_delete_info_$(date +"%Y%m%d").csv ./"
+echo "...and then:"
+echo "scp $(hostname):$(pwd)/users_delete_$(date +"%Y%m%d").csv ./"
 
 
 # cleanup tmp files

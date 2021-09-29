@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2020 - present Navigation North
+ Copyright (C) 2021 - present Navigation North
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -15,10 +15,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-SELECT DISTINCT CONCAT(trim(D.first_name), ' ', trim(D.last_name)) AS deactivated_name, U.name AS canvas_name, P.unique_id,
-	P.last_login_at,  U.created_at, U.updated_at
+SELECT DISTINCT P.unique_id AS user_id, P.unique_id AS login_id, 'deleted' AS status
 FROM sis_disabled D INNER JOIN pseudonyms P ON P.unique_id = D.sis_id
 INNER JOIN users U on U.id = P.user_id
-WHERE U.deleted_at IS NULL
+WHERE U.deleted_at IS NULL AND ( (P.last_login_at IS NULL) OR (P.last_login_at < NOW() - INTERVAL '90 days' ))
 ORDER BY P.unique_id
-
